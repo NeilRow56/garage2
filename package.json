@@ -8,6 +8,17 @@
     "start": "next start",
     "lint": "next lint"
   },
+  "overrides": {
+    "@esbuild-kit/core-utils": {
+      "esbuild": "0.25.0"
+    },
+    "@esbuild-kit/esm-loader": {
+      "esbuild": "0.25.0"
+    },
+    "drizzle-kit": {
+      "esbuild": "0.25.0"
+    }
+  },
   "dependencies": {
     "@hookform/resolvers": "^5.0.1",
     "@kinde-oss/kinde-auth-nextjs": "^2.6.1",
@@ -56,6 +67,7 @@
     "@types/react-dom": "^19",
     "@typescript-eslint/eslint-plugin": "^8.29.1",
     "dotenv": "^16.4.7",
+    "drizzle-kit": "^0.30.6",
     "eslint": "^9",
     "eslint-config-next": "15.2.5",
     "eslint-config-prettier": "^10.1.1",
