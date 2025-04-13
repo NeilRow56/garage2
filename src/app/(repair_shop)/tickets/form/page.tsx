@@ -2,6 +2,7 @@ import { getCustomer } from '@/lib/queries/getCustomer'
 import { getTicket } from '@/lib/queries/getTicket'
 import { BackButton } from '@/components/back-button'
 import * as Sentry from '@sentry/nextjs'
+import TicketForm from './ticket-form'
 
 //METADATA
 
@@ -73,6 +74,7 @@ export default async function TicketFormPage({
 
       // return ticket form
       console.log(customer)
+      return <TicketForm customer={customer} />
     }
     // edit ticket form
     if (ticketId) {
@@ -92,6 +94,7 @@ export default async function TicketFormPage({
       // Ticket form
       console.log('ticket: ', ticket)
       console.log('customer:', customer)
+      return <TicketForm customer={customer} ticket={ticket} />
     }
   } catch (error) {
     if (error instanceof Error) {

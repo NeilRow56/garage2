@@ -1,7 +1,7 @@
 import { BackButton } from '@/components/back-button'
 import { getCustomer } from '@/lib/queries/getCustomer'
-import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server'
 import * as Sentry from '@sentry/nextjs'
+import CustomerForm from './customer-form'
 //METADATA
 
 export async function generateMetadata({
@@ -40,8 +40,10 @@ export default async function CustomerFormPage({
       }
       console.log(customer)
       // edit customer form component
+      return <CustomerForm customer={customer} />
     } else {
       // new customer form component
+      return <CustomerForm />
     }
   } catch (error) {
     if (error instanceof Error) {
