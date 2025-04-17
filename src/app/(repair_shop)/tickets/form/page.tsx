@@ -73,7 +73,7 @@ export default async function TicketFormPage({
       }
 
       // return ticket form
-      console.log(customer)
+
       return <TicketForm customer={customer} />
     }
     // edit ticket form
