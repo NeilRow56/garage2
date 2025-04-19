@@ -1,9 +1,25 @@
-import React from 'react'
+import { getCustomerSearchResults } from '@/lib/queries/getCustomerSearchResults'
+import CustomerSearch from './customer-search'
 
 export const metadata = {
-  title: 'Customers'
+  title: 'Customer Search'
 }
 
-export default function CustomersPage() {
-  return <div className='flex flex-col space-y-5'>Customers Page</div>
+export default async function Customers({
+  searchParams
+}: {
+  searchParams: Promise<{ [key: string]: string | undefined }>
+}) {
+  const { searchText } = await searchParams
+
+  if (!searchText) return <CustomerSearch />
+
+  const results = await getCustomerSearchResults(searchText)
+
+  return (
+    <>
+      <CustomerSearch />
+      <p>{JSON.stringify(results)}</p>
+    </>
+  )
 }
