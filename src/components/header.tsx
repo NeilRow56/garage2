@@ -14,7 +14,7 @@ export function Header() {
           <NavButton href='/tickets' label='Home' icon={HomeIcon} />
 
           <Link
-            href='/home'
+            href='/tickets'
             className='ml-0 flex items-center justify-center gap-2'
             title='Home'
           >

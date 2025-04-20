@@ -4,21 +4,23 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Form } from '@/components/ui/form'
 import { Button } from '@/components/ui/button'
+
 import {
   insertTicketSchema,
   type insertTicketSchemaType,
   type selectTicketSchemaType
 } from '@/zod-schemas/ticket'
 import { selectCustomerSchemaType } from '@/zod-schemas/customer'
-import { TextAreaWithLabel } from '@/components/form-inputs/TextAreaWithLabel'
-import { CheckboxWithLabel } from '@/components/form-inputs/CheckboxWithLabel'
-import { InputWithLabel } from '@/components/form-inputs/InputWithLabel'
-import { SelectWithLabel } from '@/components/form-inputs/SelectWithLabel'
+
 import { useAction } from 'next-safe-action/hooks'
 import { saveTicketAction } from '@/app/actions/saveTicketAction'
 import { toast } from 'react-toastify'
-import { DisplayServerActionResponse } from '@/components/display-server-action-response'
 import { LoaderCircle } from 'lucide-react'
+import { DisplayServerActionResponse } from '@/components/display-server-action-response'
+import { InputWithLabel } from '@/components/form-inputs/InputWithLabel'
+import { SelectWithLabel } from '@/components/form-inputs/SelectWithLabel'
+import { CheckboxWithLabel } from '@/components/form-inputs/CheckboxWithLabel'
+import { TextAreaWithLabel } from '@/components/form-inputs/TextAreaWithLabel'
 
 type Props = {
   customer: selectCustomerSchemaType
@@ -28,20 +30,16 @@ type Props = {
     description: string
   }[]
   isEditable?: boolean
+  isManager?: boolean | undefined
 }
-
-// ?? provides a concise way to handle potentially null values
-
-// We must have a customerId to complete the TicketForm
 
 export default function TicketForm({
   customer,
   ticket,
   techs,
-  isEditable = true
+  isEditable = true,
+  isManager = false
 }: Props) {
-  const isManager = Array.isArray(techs)
-
   const defaultValues: insertTicketSchemaType = {
     id: ticket?.id ?? '(New)',
     customerId: ticket?.customerId ?? customer.id,
@@ -70,7 +68,7 @@ export default function TicketForm({
         }
       }
     },
-    onError({ error }) {
+    onError() {
       toast.error('Something went wrong!')
     }
   })
@@ -78,6 +76,7 @@ export default function TicketForm({
   async function submitForm(data: insertTicketSchemaType) {
     executeSave(data)
   }
+
   return (
     <div className='flex flex-col gap-1 sm:px-8'>
       <DisplayServerActionResponse result={saveResult} />
@@ -99,10 +98,10 @@ export default function TicketForm({
             <InputWithLabel<insertTicketSchemaType>
               fieldTitle='Title'
               nameInSchema='title'
-              className='mt-2'
               disabled={!isEditable}
             />
-            {isManager ? (
+
+            {isManager && techs ? (
               <SelectWithLabel<insertTicketSchemaType>
                 fieldTitle='Tech ID'
                 nameInSchema='tech'

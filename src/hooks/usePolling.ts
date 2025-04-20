@@ -1,6 +1,8 @@
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 
+// 1 minute = 60000 ms
+
 export function usePolling(searchParam: string | null, ms: number = 60000) {
   const router = useRouter()
 
