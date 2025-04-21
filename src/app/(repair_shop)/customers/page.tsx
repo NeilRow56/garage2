@@ -1,6 +1,6 @@
 import { getCustomerSearchResults } from '@/lib/queries/getCustomerSearchResults'
 import CustomerSearch from './customer-search'
-import * as Sentry from '@sentry/nextjs'
+
 import CustomerTable from './customer-table'
 
 export const metadata = {

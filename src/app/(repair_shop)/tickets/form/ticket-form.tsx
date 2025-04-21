@@ -68,7 +68,7 @@ export default function TicketForm({
         }
       }
     },
-    onError() {
+    onError({ error }) {
       toast.error('Something went wrong!')
     }
   })
